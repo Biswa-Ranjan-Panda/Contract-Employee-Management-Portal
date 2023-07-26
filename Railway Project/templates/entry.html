@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Employee Entry</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #53a0fd, #dc3545);
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid #ccc;
+            background: #007bff;
+            color: #fff;
+        }
+
+        .header img {
+            width: 100px;
+            height: 100px;
+            margin-right: 10px;
+        }
+
+        .header h1 {
+            margin: 0;
+        }
+
+        .logout {
+            background-color: #dc3545;
+            color: #fff;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 16px;
+        }
+
+        .form-group input[type="submit"] {
+            background-color: #007bff;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .error-message {
+            display: none;
+            color: #dc3545;
+            font-size: 14px;
+            margin-top: 5px;
+        }
+    </style>
+    <script>
+        function validateAadhar() {
+            var aadharField = document.getElementById("aadhar_no");
+            var errorMessage = document.getElementById("error_aadhar");
+
+            if (aadharField.value.length !== 12) {
+                errorMessage.style.display = "block";
+            } else {
+                errorMessage.style.display = "none";
+
+                var xhr = new XMLHttpRequest();
+            xhr.open('POST', '/check_aadhar', true);
+            xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        if (response.exists) {
+                            errorMessage.innerText = 'Aadhar number already exists in the database.';
+                            errorMessage.style.display = "block";
+                        }
+                        
+                    }
+                }
+            };
+            xhr.send('aadhar_number=' + aadharField.value);
+            }
+        }
+    </script>
+</head>
+<body>
+    <div class="header">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/83/Indian_Railways.svg/640px-Indian_Railways.svg.png" alt="Company Logo">
+        <h1>Employee Data Entry Form</h1>
+        <form method="post" action="/logout">
+            <input class="logout" type="submit" value="Logout">
+        </form>
+    </div>
+
+    <div class="container">
+        <h1>Employee Entry</h1>
+        <form method="post" action="/submit_entry">
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+              <div class="alert alert-success">
+                {{ messages[0] }}
+              </div>
+            {% endif %}
+          {% endwith %}
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="father_name">Father's Name:</label>
+                <input type="text" id="father_name" name="father_name" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="aadhar_no">Aadhar Number:</label>
+                <input type="number" id="aadhar_no" name="aadhar_no" required oninput="validateAadhar()">
+                <div id="error_aadhar" class="error-message">Invalid Aadhar No. (Must be 12 digits)</div>
+            </div>
+            
+            <div class="form-group">
+                <label for="p_address">Permanent Address:</label>
+                <input type="text" id="p_address" name="p_address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="c_address">Correspondence Address:</label>
+                <input type="text" id="c_address" name="c_address" required>
+            </div>
+
+            <div class="form-group">
+                <label for="r_id">Railway ID No.:</label>
+                <input type="text" id="r_id" name="r_id" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contractor">Contractor</label>
+                <input type="text" id="contractor" name="contractor" required>
+            </div>
+
+            <div class="form-group">
+                <label for="designation">Designation</label>
+                <input type="text" id="designation" name="designation" required>
+            </div>
+
+            <div class="form-group">
+                <label for="zone">Zone</label>
+                <input type="text" id="zone" name="zone" required>
+            </div>
+
+            <div class="form-group">
+                <label for="division">Division</label>
+                <input type="text" id="division" name="division" required>
+            </div>
+
+            <div class="form-group">
+                <label for="depot">Depot</label>
+                <input type="text" id="depot" name="depot" required>
+            </div>
+
+            <div class="form-group">
+                <label for="contract">Contract</label>
+                <input type="text" id="contract" name="contract" required>
+            </div>
+
+            <div class="form-group">
+                <label for="working_from">Working From</label>
+                <input type="text" id="working_from" name="working_from" required>
+            </div>
+
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.inputmask/5.0.6/jquery.inputmask.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('#working_from').inputmask('99/99/9999');
+    });
+  </script>
+
+            <div class="form-group">
+                <input type="submit" value="Submit">
+            </div>
+        </form>
+    </div>
+</body>
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contract Employee Management Portal</title>
+    <style>
+         body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 50px;
+            background: linear-gradient(-45deg, #00d4ff, #ff0062, #ffffff);
+            background-size: 400% 400%;
+            animation: gradientAnimation 30s ease infinite;
+        }
+        h1 {
+            font-family: 'Times New Roman', serif;
+            font-size: 40px;
+            color: #333;
+            margin-bottom: 20px; /* Add margin at the bottom */
+        }
+
+        h2 {
+            font-size: 24px;
+            color: #666;
+            margin-top: 30px;
+            margin-bottom: 30px; /* Add margin at the bottom */
+        }
+
+        .button {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px; /* Add rounded corners */
+            margin: 10px;
+            font-size: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Add box shadow */
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #0056b3;
+            transform: translateY(-2px); /* Add slight hover effect */
+        }
+        @keyframes gradientAnimation {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        .top-bar {
+            background-color: #007bff;
+            padding: 10px;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 999;
+        }
+
+        .logo {
+            width: 100px; /* Adjust the width of your logo */
+            height: 100px; /* Adjust the height of your logo */
+            display: block;
+            margin: 0 auto;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="top-bar">
+        <img src="https://upload.wikimedia.org/wikipedia/en/thumb/8/83/Indian_Railways.svg/640px-Indian_Railways.svg.png" alt="Logo" class="logo">
+    </div>
+
+    <h1 style="padding-top: 200px;"> Welcome to Contract Employee Management Portal</h1>
+    <h2>Kindly select an option Below.</h2>
+    <a href="{{ url_for('entry_login') }}" class="button">Enter Employee Data</a>
+    <a href="{{ url_for('rem_login') }}" class="button">Fill To Date</a>
+    <a href="#" class="button">Button 3</a>
+    <a href="#" class="button">Button 4</a>
+    <a href="#" class="button">Button 5</a>
+</body>
+</html>
